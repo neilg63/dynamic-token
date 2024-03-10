@@ -30,7 +30,7 @@ At a basic level, dynamic tokens only require a shared API key. Both the server 
 ```rust
 let options = AuthOptions::new("my_cryptic_shared_api_key").set_tolerance_secs(15);
 ```
-This will work if the client and server clocks are synchronised, shared the same API key and request does not take longer than 15 seconds. Short time-outs help prevent DDOS attacks
+This will work if the client and server clocks are synchronised, share the same API key and the initial HTTP request does not take longer than 15 seconds. Short time-outs help prevent DDOS attacks
 
 #### Heavyweight API endpoint with a large payload such a file upload
 
