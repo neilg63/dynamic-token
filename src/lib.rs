@@ -31,6 +31,8 @@ mod tests {
     let to_key = to_dynamic_key(&options, Some(uuid));
     let valid_auth_token = from_dynamic_key(&to_key, &options);
 
+    println!("API KEY: {}, uuid: {}, encoded {}", api_key, uuid, to_key);
+
     assert!(valid_auth_token.valid());
 
     assert!(valid_auth_token.age() < 1000); // less than a second

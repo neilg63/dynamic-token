@@ -1,8 +1,15 @@
 # Dynamic Token
 
-A Dynamic token authenticates client applications with the server via a shared API key, timestamp, random characters and an optional uuid. Unlike a JWT token, a dynamic token is not reusable and does not validate a user's session. It may supplement a JWT token and provides enhanced security without having to issue a temporary access key. As dynamic tokens change every millisecond with randomised injection of the encoded API key with extra random noise characters in a base-64-encoded string, it is almost impossible to deconstruct the token.
-If the decoded timestamp falls outside a narrow time range, by default 5 minutes, it will be rejected. This allows for long request times and minor discrepancies in system clock times. However, the only time that matters is the initial request, not the time it takes to process and send the response. In theory, the same token would work for this limited period.
+A Dynamic token authenticates client applications with the server via a shared API key, timestamp, some random characters and an optional uuid. Unlike JWT tokens, dynamic tokens are not reusable and do not validate a user's session. They may supplement JWT tokens and provide an extra security layer without having to issue temporary access keys or restrict traffic to specific IP addresses or user agents. As dynamic tokens change every millisecond with randomised injection of the encoded API key with extra random noise characters in a base-64-encoded string, it is almost impossible to deconstruct the token.
+If the decoded timestamp falls outside a narrow time range, by default 5 minutes, it will be rejected. This allows for reltively long request times and minor discrepancies in system clock times. However, the only time that matters is the initial request, not the time it takes to process and send the response. In theory, the same token would work for this limited period.
 
+### Example
+
+- **Shared API key**: Opus;Magna-897
+- **Millisecond timestamp**: 1710105367868
+- **Random noise or split characters**: %.,
+- **UUID**: 6061f78686f34f52da3ef464
+- **encoded token**: OHR5a09wdXM7TWFnbmEtODk3MG10bDAwLDAwcjRfXzExa2JxOGloMnJfdXd6MjU2M2o4LjAwazk=
 
 ## Comparison with other authentication systems
 
@@ -62,3 +69,6 @@ if result.valid() {
 ```
 If UUIDs are required, the client must send a valid hexadecimal UUID. The from_dynamic_token crate will only decode the injected UUID and validate its presence and format, any hexadecimal string with at least 16 characters is valid even if 24 or 32 character strings are customary. You can perform additional validation with the extract UUID.
 If the client sends a UUID, but the server does not require it, the UUID component will be ignored.
+
+### Dev Notes
+This is an alpha release and will accompany Node JS and Web versions of the same utility.
