@@ -21,7 +21,7 @@ Many systems require a long access key and client secret. While cryptic, they ar
 
 ### Customisation Options
 
-At its most basic dynamic tokens only require a shared API key. Both the server and the client must use compatibile dynamic token algorithms. The Rust crate is ideal for server to server communication as an HTTP header added and authenticated as middleware. The dynamic token does not expose the API key or timestamp, unless someone has deconstructed the algorithm used to inject and encode these components into the string before base-64 encoding. Even if a dynamic token is intercepted, it has a limited lifetime.
+At a basic level, dynamic tokens only require a shared API key. Both the server and the client must use compatibile dynamic token algorithms. The Rust crate is ideal for server to server communication as an HTTP header added and authenticated as middleware. The dynamic token does not expose the API key or timestamp in an easily hackable format. Even if a dynamic token is intercepted, it has a limited lifetime.
 
 ### Suggested configurations:
 
