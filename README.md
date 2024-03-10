@@ -1,6 +1,10 @@
+[![mirror](https://img.shields.io/badge/mirror-github-blue)](https://github.com/neilg63/dynamic-token)
+[![crates.io](https://img.shields.io/crates/v/dynamic-token.svg)](https://crates.io/crates/dynamic-token)
+[![docs.rs](https://docs.rs/dynamic-token/badge.svg)](https://docs.rs/dynamic-token)
+
 # Dynamic Token
 
-A Dynamic token authenticates client applications with the server via a shared API key, timestamp, some random characters and an optional uuid. Unlike JWT tokens, dynamic tokens are not reusable and do not validate a user's session. They may supplement JWT tokens and provide an extra security layer without having to issue temporary access keys or restrict traffic to specific IP addresses or user agents. As dynamic tokens change every millisecond with randomised injection of the encoded API key with extra random noise characters in a base-64-encoded string, it is almost impossible to deconstruct the token.
+A time-sensitive *dynamic token* authenticates client applications with the server via a shared API key, timestamp, some random characters and an optional UUID (Universally Unique IIDentifier). Unlike JWT tokens, dynamic tokens are not reusable and do not validate a user's session. They may supplement JWT tokens and provide an extra security layer without having to issue temporary access keys or restrict traffic to specific IP addresses or user agents. As dynamic tokens change every millisecond with randomised injection of the encoded API key with extra random noise characters in a base-64-encoded string, it is almost impossible to deconstruct the token.
 If the decoded timestamp falls outside a narrow time range, by default 5 minutes, it will be rejected. This allows for reltively long request times and minor discrepancies in system clock times. However, the only time that matters is the initial request, not the time it takes to process and send the response. In theory, the same token would work for this limited period.
 
 ### Example
