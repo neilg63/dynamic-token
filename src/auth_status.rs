@@ -1,4 +1,5 @@
-
+/// Defines authentication status based on the first rule that fails validation
+/// If the decoded string cannot be parsed at all, the status will be None
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum AuthStatus {
   None, // could not be authenticated

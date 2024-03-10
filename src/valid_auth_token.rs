@@ -1,5 +1,12 @@
 use crate::auth_status::AuthStatus;
 
+/// Return type for the from_dyaamic_key() method
+/// This is a simple tuple struct with getter methods for
+/// age() milliseconds since the decoded timestamp
+/// uuid embedded UUID if available
+/// has_user() indicates whether valid UUID-like string is embedded
+/// status() The outcome showing where or if validation failed
+/// status_key() a human-readable snake-case key indicating the status
 #[derive(Debug, Clone)]
 pub struct ValidAuthToken(pub bool, pub Option<String>, pub Option<i64>, pub AuthStatus);
 
