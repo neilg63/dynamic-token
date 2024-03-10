@@ -71,7 +71,7 @@ if result.valid() {
 }
 
 ```
-If UUIDs are required, the client must send a valid hexadecimal UUID. The from_dynamic_token crate will only decode the injected UUID and validate its presence and format, any hexadecimal string with at least 16 characters is valid even if 24 or 32 character strings are customary. You can perform additional validation with the extract UUID.
+If UUIDs are required, the client must send a valid hexadecimal UUID. The *from_dynamic_token()* function will decode the injected UUID and validate only its presence and format. Any hexadecimal string with at least 16 characters is valid, even if 24 or 32 character strings are customary. You can use the extracted UUID for subsequent user-specific authenticatiom.
 If the client sends a UUID, but the server does not require it, the UUID component will be ignored.
 
 ### Dev Notes
