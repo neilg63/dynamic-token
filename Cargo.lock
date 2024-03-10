@@ -178,9 +178,9 @@ dependencies = [
 
 [[package]]
 name = "simple-string-patterns"
-version = "0.2.1"
+version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "66051240ca5e38c204db67ea53122bf004c4a1a730d9e88618f8db4a193882b9"
+checksum = "5b30cb794f0c62eec792b0f4d27e83739c81adc75db33785d1493293605c7f65"
 
 [[package]]
 name = "syn"

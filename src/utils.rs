@@ -1,4 +1,4 @@
-use std::str::{self, Chars};
+use std::str::{self};
 use rand::Rng;
 use utcnow::utcnow;
 use base64::{Engine as _, engine::general_purpose};
@@ -93,32 +93,19 @@ pub(crate) fn base_36_str_to_u64(sample: &str) -> Option<u64> {
   }
 }
 
-pub(crate) fn random_chars_split(sample: &str, rand_chars: Chars) -> (String, String) {
-  for ch in rand_chars {
-    if sample.contains(ch) { 
-      if let Some((first, second)) = sample.split_once(ch) {
-        return (first.to_string(),  second.to_string());
-      }
-    }
-  }
-  ("".to_string(), sample.to_string())
-}
-
-
 pub(crate) fn random_int(max: u32) -> u32 {
   let mut rng = rand::thread_rng();
   rng.gen::<u32>() % max
 }
 
-pub(crate) fn rand_char(characters: &Vec<char>) -> char {
+pub(crate) fn rand_char(characters: &[char]) -> char {
   let len = characters.len();
   let rand_index = random_int(len as u32) as usize;
   characters.get(rand_index).unwrap_or(&' ').to_owned()
 }
 
-pub(crate) fn rand_char_as_string(rand_chars: Chars) -> String {
-  let chars_vec = rand_chars.collect::<Vec<char>>();
-  rand_char(&chars_vec).to_string()
+pub(crate) fn rand_char_as_string(rand_chars: &[char]) -> String{
+  rand_char(rand_chars).to_string()
 }
 
 pub(crate) fn rand_int_36(power: u8) -> String {

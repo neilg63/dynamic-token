@@ -6,11 +6,11 @@ If the decoded timestamp falls outside a narrow time range, by default 5 minutes
 
 ## Comparison with other authentication systems
 
-Many systems require a long access key and client secret. While cryptic, they are static and exposed directly in the header, payload or query string. Others require a handshake, where the static API key identfies the client, but issues a temporary access token for subsequent requests. This access token may be valid for an extended user session or only long enough to let the client send a second request to fetch the required data. This complicates data flow between two tightly web applications, especially micro-services and backend APIs for mobile apps and Web applications.
+Many systems require a long access key and client secret. While cryptic, they are static and exposed directly in the header, payload or query string. Others require a handshake, where the static API key identfies the client, but issues a temporary access token for subsequent requests. This access token may be valid for an extended user session or only long enough to let the client send a second request to fetch the required data. This complicates interaction between two tightly bound web applications, especially micro-services and backend APIs for mobile apps and Web applications.
 
 ### Customisation Options
 
-At its most basic dynamic tokens only require a shared API key. Both the server and the client must use compatibile dynamic token libaries. The Rust crate is ideal for server to server communication as an HTTP header added and authenticated as middleware. The dynamic token does not expose the API key or timestamp, unless someone has deconstructed the algorithm used to inject and encode these components into the string before base-64 encoding. Even if a dynamic token is intercepted, it has a limited lifetime.
+At its most basic dynamic tokens only require a shared API key. Both the server and the client must use compatibile dynamic token algorithms. The Rust crate is ideal for server to server communication as an HTTP header added and authenticated as middleware. The dynamic token does not expose the API key or timestamp, unless someone has deconstructed the algorithm used to inject and encode these components into the string before base-64 encoding. Even if a dynamic token is intercepted, it has a limited lifetime.
 
 ### Suggested configurations:
 

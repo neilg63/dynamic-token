@@ -1,13 +1,9 @@
-use std::str::Chars;
 use simple_string_patterns::CharGroupMatch;
 
 /// Authentication options
 /// Only the API key is mandatory.
 /// By default a uuid is not validated, the random split characters are `%.,` and max age or tolerance is 5 minutes (or 300000 milliseconds)
 /// NB: The random split characters (rand_char_str) may not include alphanumeric characters or underscores, as these would break other validation
-/// Usage:
-/// ```rust
-/// AuthOptions::new("my_cryptic_shared_api_key").check_uuid(true).set_tolerance_secs(1);
 /// ```
 #[derive(Debug, Clone, Copy)]
 pub struct AuthOptions<'a> {
@@ -39,8 +35,8 @@ impl<'a> AuthOptions<'a> {
     self.api_key
   }
 
-  pub fn rand_chars(&self) -> Chars {
-    self.rand_char_str.chars()
+  pub fn rand_chars(&self) -> Vec<char> {
+    self.rand_char_str.chars().into_iter().collect::<Vec<char>>()
   }
 
   pub fn tolerance(&self) -> i64 {

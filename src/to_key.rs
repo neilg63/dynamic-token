@@ -14,16 +14,14 @@ pub fn to_dynamic_key(options: &AuthOptions, uuid_opt: Option<&str>) -> String {
   let mut parts: Vec<String> = vec![];
 
   let merged_list = [&ts_list.as_str()[..offset], options.key(), &ts_list.as_str()[offset..]].concat();
-  let base_str = [merged_list, rand_int_36(3)].join(
-    &rand_char_as_string(options.rand_chars())
-  );
+  let rand_separator = rand_char_as_string(&options.rand_chars());
+  let base_str = [merged_list, rand_int_36(3)].join(&rand_separator);
   parts.push(base_str);
   if let Some(uuid) = uuid_opt { 
     if let Some(uid_str) = hex_string_to_base36_parts(uuid) {
       let rand_int_str = rand_int_36(3);
-      let uid_part = [uid_str, rand_int_str].join(
-        &rand_char_as_string(options.rand_chars())
-      );
+      let rand_separator = rand_char_as_string(&options.rand_chars());
+      let uid_part = [uid_str, rand_int_str].join(&rand_separator);
       parts.push(uid_part);
     }
   }

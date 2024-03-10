@@ -1,4 +1,4 @@
-use simple_string_patterns::ToSegments;
+use simple_string_patterns::{ToSegments,ToSegmentsFromChars};
 use crate::utils::*;
 use crate::valid_auth_token::ValidAuthToken;
 use crate::auth_status::*;
@@ -27,7 +27,7 @@ pub fn from_dynamic_key(
         if let Some(long_str) = parts.last() {
           let (first, second) = long_str.to_head_tail("_");
           if second.len() > 6 {
-            let (tail_end, int_str) = random_chars_split(&second, options.rand_chars());
+            let (tail_end, int_str) = second.to_head_tail_on_any_char(&options.rand_chars());
             let uid_str = [
               base_36_parts_to_hex_dec(&first),
               base_36_parts_to_hex_dec(&tail_end)
@@ -54,10 +54,7 @@ pub fn from_dynamic_key(
       let ts_parts = base_str.to_parts(api_key);
       // the timestamp parts are either side if the decoded API key. Concatenate them to reassemble
       // ts_str and base_suffix is base-36 encoded timestamps. The latter is randomised and must only be a valid integer
-      let (ts_str, base_suffix) = random_chars_split(
-        &ts_parts.concat(),
-        options.rand_chars()
-      );
+      let (ts_str, base_suffix) = ts_parts.concat().to_head_tail_on_any_char(&options.rand_chars());
       if valid {
         // must have a valid base-36 format
         valid = ts_str.chars().all(|c| c.is_alphanumeric());
