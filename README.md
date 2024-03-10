@@ -1,6 +1,6 @@
 # Dynamic Token
 
-A Dynamic token authenticates client applications with the server via a shared API key, timestamp, random characters and an optional uuid. Unlike a JWT token, a dynamic token is not reusable and does not validate a user's session. It may supplement a JWT token and provides enhanced security without having to issue a temporary access key. As dynamic tokens change every millisecond with randomised injection of the encoded API key with extra random noise characters in a base-64-encoded string, it is almost impossible to intercept the token.
+A Dynamic token authenticates client applications with the server via a shared API key, timestamp, random characters and an optional uuid. Unlike a JWT token, a dynamic token is not reusable and does not validate a user's session. It may supplement a JWT token and provides enhanced security without having to issue a temporary access key. As dynamic tokens change every millisecond with randomised injection of the encoded API key with extra random noise characters in a base-64-encoded string, it is almost impossible to deconstruct the token.
 If the decoded timestamp falls outside a narrow time range, by default 5 minutes, it will be rejected. This allows for long request times and minor discrepancies in system clock times. However, the only time that matters is the initial request, not the time it takes to process and send the response. In theory, the same token would work for this limited period.
 
 
