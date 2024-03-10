@@ -4,7 +4,6 @@ use simple_string_patterns::CharGroupMatch;
 /// Only the API key is mandatory.
 /// By default a uuid is not validated, the random split characters are `%.,` and max age or tolerance is 5 minutes (or 300000 milliseconds)
 /// NB: The random split characters (rand_char_str) may not include alphanumeric characters or underscores, as these would break other validation
-/// ```
 #[derive(Debug, Clone, Copy)]
 pub struct AuthOptions<'a> {
   process_uuid: bool,
