@@ -52,7 +52,7 @@ pub fn from_dynamic_key(
       // use only the base string before the user ID
       let base_str = parts.get(0).unwrap();
       let ts_parts = base_str.to_parts(api_key);
-      // the timestamp parts are either side if the decoded API key. Concatenate them to reassemble
+      // the timestamp parts are either side of the decoded API key. Concatenate them to reassemble
       // ts_str and base_suffix is base-36 encoded timestamps. The latter is randomised and must only be a valid integer
       let (ts_str, base_suffix) = ts_parts.concat().to_head_tail_on_any_char(&options.rand_chars());
       if valid {
@@ -62,7 +62,7 @@ pub fn from_dynamic_key(
           status = AuthStatus::InvalidTimestamp;
         }
       }
-      // If a UUID is required the timestamp wioll not be authenticated
+      // If a UUID is required and not present, the timestamp will not be authenticated
       if valid {
         if let Some(_suffix_int) = base_36_str_to_u64(&base_suffix) {
           // reverse the the base-36 string

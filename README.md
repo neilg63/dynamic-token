@@ -4,7 +4,10 @@
 
 # Dynamic Token
 
-A time-sensitive *dynamic token* authenticates client applications with the server via a shared API key, timestamp, some random characters and an optional UUID (Universally Unique IIDentifier). Unlike JWT tokens, dynamic tokens are not reusable and do not validate a user's session. They may supplement JWT tokens and provide an extra security layer without having to issue temporary access keys or restrict traffic to specific IP addresses or user agents. As dynamic tokens change every millisecond with randomised injection of the encoded API key with extra random noise characters in a base-64-encoded string, it is almost impossible to deconstruct the token.
+Time-sensitive *dynamic tokens* authenticate client applications with the server via a shared API key, timestamp, some random characters and an optional UUID (Universally Unique IDentifier) for a second stage of authorisation. Unlike JWT tokens, dynamic tokens are not reusable and do not validate or maintain a user's session. They serve as a first line of defence against unauthorised requests.
+
+They may supplement JWT tokens as an extra security layer. As dynamic tokens change every millisecond with randomised shuffling of characters, they cannot be easily deconstructed without detailed knowledge of the algorithm.
+
 If the decoded timestamp falls outside a narrow time range, by default 5 minutes, it will be rejected. This allows for reltively long request times and minor discrepancies in system clock times. However, the only time that matters is the initial request, not the time it takes to process and send the response. In theory, the same token would work for this limited period.
 
 ### Example
@@ -17,7 +20,9 @@ If the decoded timestamp falls outside a narrow time range, by default 5 minutes
 
 ## Comparison with other authentication systems
 
-Many systems require a long access key and client secret. While cryptic, they are static and exposed directly in the header, payload or query string. Others require a handshake, where the static API key identfies the client, but issues a temporary access token for subsequent requests. This access token may be valid for an extended user session or only long enough to let the client send a second request to fetch the required data. This complicates interaction between two tightly bound web applications, especially micro-services and backend APIs for mobile apps and Web applications.
+- **Access key and client secrets** These are best suited to Web services open to a diverse range of consumers on different platforms. While cryptic, the credentials are exposed directly in the header, payload or query string credentials need to be checked against a local database.
+- Others, such as *OAuth 2.0*, require a handshake, where the static API key identfies the client, but issue a temporary access token for subsequent requests. This access token may be valid for an extended user session or only long enough to let the client send a second request to fetch the required data. 
+- By contrats, dynamic tokens can grant restrict access to a select group of clients without expensive database requests. They are ideal for applications that you control, but can grant additional permissions from the optional UUID.
 
 ### Customisation Options
 
