@@ -47,7 +47,7 @@ let options = AuthOptions::new("my_cryptic_shared_api_key").set_tolerance_mins(5
 ```
 In practice, allowing times over 5 minutes is not recommended as large uploads will reach the server in packets and the HTTP header with the token would only be authenticated at the beginning of the file transfer process.
 
-#### Define custom randome split characters
+#### Define custom random control characters
 ```rust
 let options = AuthOptions::new("my_cryptic_shared_api_key").set_rand_char_str("%@,.?£$");
 ```
@@ -60,8 +60,11 @@ A UUID is a universal unique identifier, typically a 24 or 32-character-long hex
 ```rust
 let options = AuthOptions::new("my_cryptic_shared_api_key").check_uuid(true);
 
+// The client generates a key that may be added to the request header
 let to_key = to_dynamic_key(&options, Some("5d00012de43dcd165cceb295"));
 
+// The sever decodes the key using the shared API key and control characters
+// You may use different options for different endpoints
 let result = from_dynamic_key(&to_key, &options);
 
 if result.valid() {
