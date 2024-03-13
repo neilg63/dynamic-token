@@ -25,9 +25,7 @@ If the decoded timestamp falls outside a narrow time range, by default 5 minutes
 - By contrast, dynamic tokens can restrict access to a select group of clients with non-reusable tokens without the need for a handshake. If user-specific authentication is required, embedded UUIDs can be used for a second database-driven authorisation step.
 
 ### Obfuscation rather than one-way encyrption
-As base-64 encoding is very common, it would be possible to decode a dynamic token and through brute force guess which parts may be API token, possibly by comparing two dynamic  tokens a a few seconds apart. However, potential hackers would still need to guess how to decode the timestamp and identify random control characters. 
-
-Here a token is generated at one second intervals:
+As base-64 encoding is very common, it would be possible to decode a dynamic token and through brute force guess which parts may be API token by comparing two dynamic tokens. However, potential hackers would still need to guess how to decode and reassemble the timestamp and exclude random control characters.
 
 ### Customisation Options
 
