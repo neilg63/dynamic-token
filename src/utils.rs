@@ -4,6 +4,7 @@ use utcnow::utcnow;
 use base64::{Engine as _, engine::general_purpose};
 use crate::constants::*;
 
+/// Fetch the current timestamp in milliseconds with the standard library
 pub(crate) fn milliseconds_now() -> i64 {
   let ts = utcnow().unwrap().as_millis();
   let max = i64::MAX;
@@ -42,16 +43,19 @@ pub(crate) fn hex_dec_to_base_36(sample: &str) -> Option<String> {
     }
 }
 
+/// Convert a base-10 integer to a base-36 string
 pub(crate) fn dec_to_base_36(value: u32) -> Option<String> {
   let buf = value.to_be_bytes();
   base_encode::to_string(&buf, 36, BASE_36_CHARS)
 }
 
+/// Convert a large integer to a shorter sequence of letters and numerals
 pub(crate) fn i64_to_base_36(value: i64) -> Option<String> {
   let buf = value.to_be_bytes();
   base_encode::to_string(&buf, 36, BASE_36_CHARS)
 }
 
+/// Convert a base-36 digit to u8 integer.
 pub(crate) fn base_36_to_u8(letter: &char) -> Option<u8> {
   if let Some(values) = from_base_36(&letter.to_string()) {
     if values.len() > 0 {
@@ -126,10 +130,12 @@ pub(crate) fn hex_string_to_base36_parts(hex_str: &str) -> Option<String> {
   }
 }
 
+/// base-64-encode with standard options
 pub(crate) fn encode_base64(key_str: &str) -> String {
   general_purpose::STANDARD.encode(key_str)
 }
 
+/// base-64-decode with standard options
 pub(crate) fn decode_base64(sample: &str) -> String {
   let decoded = general_purpose::STANDARD.decode(sample).unwrap_or(vec![]);
   str::from_utf8(&decoded).unwrap_or("").to_string()

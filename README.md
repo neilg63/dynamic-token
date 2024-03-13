@@ -16,7 +16,7 @@ If the decoded timestamp falls outside a narrow time range, by default 5 minutes
 - **Millisecond timestamp**: 1710105367868
 - **Random noise or split characters**: %.,
 - **UUID**: 6061f78686f34f52da3ef464
-- **encoded token**: OHR5a09wdXM7TWFnbmEtODk3MG10bDAwLDAwcjRfXzExa2JxOGloMnJfdXd6MjU2M2o4LjAwazk=
+- **Sample encoded token**: OHR5a09wdXM7TWFnbmEtODk3MG10bDAwLDAwcjRfXzExa2JxOGloMnJfdXd6MjU2M2o4LjAwazk=
 
 ## Comparison with other authentication systems
 - **Static tokens** Many microservices use a single static token. While this may ward off anonymous users, they can be easily inetercepted by analysing network requests sent from the browser to the backend.
@@ -25,7 +25,7 @@ If the decoded timestamp falls outside a narrow time range, by default 5 minutes
 - By contrast, dynamic tokens can restrict access to a select group of clients with non-reusable tokens without the need for a handshake. If user-specific authentication is required, embedded UUIDs can be used for a second database-driven authorisation step.
 
 ### Obfuscation rather than one-way encyrption
-As base-64 encoding is very common, it would be possible to decode a dynamic token and through brute force guess which parts may be API token by comparing two dynamic tokens. However, potential hackers would still need to guess how to decode and reassemble the timestamp and exclude random control characters.
+As base-64 encoding is very common, it would be possible to decode a dynamic token and through brute force guess which parts may be the shared API token by comparing two generated dynamic tokens via a standard base-64 decoding function. However, potential hackers would still need to guess how to decode and reassemble the timestamp and exclude random control characters.
 
 ### Customisation Options
 
