@@ -52,6 +52,10 @@ mod tests {
     let auth_token_3 = from_dynamic_key(&to_key, &options);
     assert_eq!(auth_token_3.valid(), false);
     assert_eq!(auth_token_3.status(), AuthStatus::TimedOut);
+    println!("{}", to_key);
+    thread::sleep(hundred_millis * 8);
+    let to_key = to_dynamic_key(&options, Some(uuid));
+    println!("{}", to_key);
     
   }
 }

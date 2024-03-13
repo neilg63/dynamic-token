@@ -19,10 +19,15 @@ If the decoded timestamp falls outside a narrow time range, by default 5 minutes
 - **encoded token**: OHR5a09wdXM7TWFnbmEtODk3MG10bDAwLDAwcjRfXzExa2JxOGloMnJfdXd6MjU2M2o4LjAwazk=
 
 ## Comparison with other authentication systems
+- **Static tokens** Many microservices use a single static token. While this may ward off anonymous users, they can be easily inetercepted by analysing network requests sent from the browser to the backend.
+- **Access key and client secrets** These are best suited to Web services open to a wide range of consumers on different platforms. The credentials are exposed directly in the header, payload or query string credentials. Access tokens may need to be checked against a local database.
+- In *OAuth 2.0*, the client initially presents its static API key to the authorization server to initiate the authentication process. After successful authentication, the authorization server issues an access token to the client. This access token serves as a credential that the client can use to access protected resources on behalf of the user.
+- By contrast, dynamic tokens can restrict access to a select group of clients with non-reusable tokens without the need for a handshake. If user-specific authentication is required, embedded UUIDs can be used for a second database-driven authorisation step.
 
-- **Access key and client secrets** These are best suited to Web services open to a diverse range of consumers on different platforms. While cryptic, the credentials are exposed directly in the header, payload or query string credentials need to be checked against a local database.
-- Others, such as *OAuth 2.0*, require a handshake, where the static API key identfies the client, but issue a temporary access token for subsequent requests. This access token may be valid for an extended user session or only long enough to let the client send a second request to fetch the required data. 
-- By contrats, dynamic tokens can grant restrict access to a select group of clients without expensive database requests. They are ideal for applications that you control, but can grant additional permissions from the optional UUID.
+### Obfuscation rather than one-way encyrption
+As base-64 encoding is very common, it would be possible to decode a dynamic token and through brute force guess which parts may be API token, possibly by comparing two dynamic  tokens a a few seconds apart. However, potential hackers would still need to guess how to decode the timestamp and identify random control characters. 
+
+Here a token is generated at one second intervals:
 
 ### Customisation Options
 
