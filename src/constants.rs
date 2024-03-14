@@ -4,3 +4,7 @@ pub const BASE_36_CHARS: &[u8; 36] = b"0123456789abcdefghijklmnopqrstuvwxyz";
 
 /// characters used for hexadecimal conversion
 pub const HEX_CHARS: &[u8; 16] = b"0123456789abcdef";
+
+pub const MIN_VALID_UUID_LENGTH: usize = 24;
+
+pub const MAX_API_KEY_OFFSET: usize = 6;

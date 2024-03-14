@@ -1,6 +1,6 @@
 use crate::auth_options::AuthOptions;
-use crate::utils::*;
-
+use crate::{utils::*, MAX_API_KEY_OFFSET};
+use simple_string_patterns::StripCharacters;
 
 /// Generate a time-sensitive dynamic key from a shared API key as defined in the options
 /// the current millisecond timestamp (encoded, split and injected)
@@ -10,15 +10,15 @@ pub fn to_dynamic_key(options: &AuthOptions, uuid_opt: Option<&str>) -> String {
   let ts_list = i64_to_base_36(ts).unwrap_or("".to_string()).chars().rev().collect::<String>();
   let ts_list_36 = base_36_str_to_u64(&ts_list[..1]).unwrap_or(0);
   let is_under = ts_list_36 < usize::MAX as u64;
-  let offset = if is_under { (ts_list_36 as usize % 6) + 2 } else { 0 };
+  let offset = if is_under { (ts_list_36 as usize % MAX_API_KEY_OFFSET) + 2 } else { 0 };
   let mut parts: Vec<String> = vec![];
 
   let merged_list = [&ts_list.as_str()[..offset], options.key(), &ts_list.as_str()[offset..]].concat();
   let rand_separator = rand_char_as_string(&options.rand_chars());
   let base_str = [merged_list, rand_int_36(3)].join(&rand_separator);
   parts.push(base_str);
-  if let Some(uuid) = uuid_opt { 
-    if let Some(uid_str) = hex_string_to_base36_parts(uuid) {
+  if let Some(uuid) = uuid_opt {     
+    if let Some(uid_str) = hex_string_to_base36_parts(&uuid.strip_non_alphanum()) {
       let rand_int_str = rand_int_36(3);
       let rand_separator = rand_char_as_string(&options.rand_chars());
       let uid_part = [uid_str, rand_int_str].join(&rand_separator);

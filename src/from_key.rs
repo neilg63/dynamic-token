@@ -3,6 +3,7 @@ use crate::utils::*;
 use crate::valid_auth_token::ValidAuthToken;
 use crate::auth_status::*;
 use crate::auth_options::*;
+use crate::MIN_VALID_UUID_LENGTH;
 
 /// Validate the dynamic key based on a shared API key, random characters, a timestamp and optional userID
 pub fn from_dynamic_key(
@@ -33,8 +34,8 @@ pub fn from_dynamic_key(
               base_36_parts_to_hex_dec(&tail_end)
             ].into_iter().map(|opt| opt.unwrap_or("".to_string())).collect::<Vec<String>>().concat();
             let rand_int = base_36_str_to_u64(&int_str);
-            
-            if uid_str.len() > 23 {
+            println!("uuu: {}", uid_str);
+            if uid_str.len() >= MIN_VALID_UUID_LENGTH {
               uuid = Some(uid_str.clone());
               valid = rand_int.is_some();
               status = if valid {

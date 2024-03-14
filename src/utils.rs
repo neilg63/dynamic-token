@@ -119,7 +119,7 @@ pub(crate) fn rand_int_36(power: u8) -> String {
 }
 
 pub(crate) fn hex_string_to_base36_parts(hex_str: &str) -> Option<String> {
-  if hex_str.len() == 24 {
+  if hex_str.len() >= MIN_VALID_UUID_LENGTH {
     let base36_str = vec![&hex_str[..12],&hex_str[12..]].into_iter()
       .map(|hd| hex_dec_to_base_36(hd).unwrap_or("".to_string()))
       .collect::<Vec<String>>()

@@ -21,8 +21,8 @@ If the decoded timestamp falls outside a narrow time range, by default 5 minutes
 ## Comparison with other authentication systems
 - **Static tokens** Many microservices use a single static token. While this may ward off anonymous users, they can be easily inetercepted by analysing network requests sent from the browser to the backend.
 - **Access key and client secrets** These are best suited to Web services open to a wide range of consumers on different platforms. The credentials are exposed directly in the header, payload or query string credentials. Access tokens may need to be checked against a local database.
-- In *OAuth 2.0*, the client initially presents its static API key to the authorization server to initiate the authentication process. After successful authentication, the authorization server issues an access token to the client. This access token serves as a credential that the client can use to access protected resources on behalf of the user.
-- By contrast, dynamic tokens can restrict access to a select group of clients with non-reusable tokens without the need for a handshake. If user-specific authentication is required, embedded UUIDs can be used for a second database-driven authorisation step.
+- In **OAuth 2.0**, the client initially presents its static API key to the server to start the authentication process. If successful, the authorisation server issues an access token to the client. This access token serves as a credential that the client can use to access protected resources on behalf of the user.
+- **Dynamic tokens**, by contrast, can restrict access to a select group of clients with non-reusable tokens without the need for a handshake or database queries. If user-specific authentication is required, embedded UUIDs can be used for a second database-driven authorisation step.
 
 ### Obfuscation rather than one-way encyrption
 As base-64 encoding is very common, it would be possible to decode a dynamic token and through brute force guess which parts may be the shared API token by comparing two generated dynamic tokens via a standard base-64 decoding function. However, potential hackers would still need to guess how to decode and reassemble the timestamp and exclude random control characters.
@@ -82,8 +82,11 @@ if result.valid() {
 }
 
 ```
-If UUIDs are required, the client must send a valid hexadecimal UUID. The *from_dynamic_token()* function will decode the injected UUID and validate only its presence and format. Any hexadecimal string with at least 16 characters is valid, even if 24 or 32 character strings are customary. You can use the extracted UUID for subsequent user-specific authenticatiom.
+If UUIDs are required, the client must send a valid hexadecimal UUID. The *from_dynamic_token()* function will decode the injected UUID and validate only its presence and format. Any hexadecimal string with at least 24 characters is valid, but 32 character strings are also supported. You can use the extracted UUID for subsequent user-specific authenticatiom.
 If the client sends a UUID, but the server does not require it, the UUID component will be ignored.
 
 ### Dev Notes
 This is an alpha release and will accompany Node JS and Web versions of the same utility.
+
+Version 1.4
+- The min length of unencoded UUIDs is 24. Most systems use either 24 or 32. Will now automatically remove "-" from UUIDs before encoding and validation.
