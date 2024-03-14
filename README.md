@@ -55,7 +55,7 @@ The server and client must share the same API key and custom split characters. T
 
 #### Reequire a valid UUID
 
-A UUID is a universal unique identifier may be any hexadecimal string at least 24 characters in length. The encoder functin stripps any hyphens. These are used many common data systems such as MongoDB and may be generated in other database systems such MySQL or PostGres that traditionally use decimal integers as primary keys. 
+A UUID is a universal unique identifier may be any hexadecimal string at least 24 characters in length. The encoder function strips any hyphens. These are used many common data systems such as MongoDB and may be generated in other database systems such MySQL or PostGres that traditionally use decimal integers as primary keys. 
 
 ```rust
 let options = AuthOptions::new("my_cryptic_shared_api_key").check_uuid(true);
