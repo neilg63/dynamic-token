@@ -91,4 +91,4 @@ This is an alpha release and will accompany Node JS and Web versions of the same
 Version 1.5
 - The min length of unencoded UUIDs is 24. Most systems use either 24 or 32 with optional hyphens as separators.
 - The encoder now strips hyphens from UUIDs, leaving only the hexademical characters available for validation.
-- The crate *encode_base64* and *decode_base64* publicly available. These are wrappers for *base64::engine::general_purpose::STANDARD.encode(&str)* and its sibling function *decode*.
+- The crate makes the *encode_base64* and *decode_base64* functions publicly available. These are wrappers for *base64::engine::general_purpose::STANDARD.encode(&str)* and its *decode* sibling.
