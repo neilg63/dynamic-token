@@ -62,7 +62,7 @@ pub fn test_control_chars() {
 #[test]
 pub fn test_long_uuid() {
 
-  let api_key = "krYpt0_δࢡබi😉▲⎈"; // you may use non-Latin letters and emojis, indeed any valid unicode character
+  let api_key = "KrYpt0_δࢡබi😉▲⎈"; // you may use non-Latin letters and emojis, indeed any valid unicode character
   let control_chars = "∑㌀兣◐"; // you can use ideograms and emojis but not alphanumeric characters or underscores
   let options = AuthOptions::new(api_key).check_uuid(true).set_tolerance_mins(2).set_rand_char_str(control_chars);
   let long_uuid= "acde070d-8c4c-4f0d-9d8a-162843c10333";
@@ -72,7 +72,7 @@ pub fn test_long_uuid() {
   thread::sleep(two_hundred_millis);
 
   let auth_token = from_dynamic_key(&to_key, &options);
-
+  // check if it's valid
   assert!(auth_token.valid());
 
   // The extracted hexdecimal UUID should be 32 characters long without hyphens

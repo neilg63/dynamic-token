@@ -131,12 +131,12 @@ pub(crate) fn hex_string_to_base36_parts(hex_str: &str) -> Option<String> {
 }
 
 /// base-64-encode with standard options
-pub(crate) fn encode_base64(key_str: &str) -> String {
+pub fn encode_base64(key_str: &str) -> String {
   general_purpose::STANDARD.encode(key_str)
 }
 
 /// base-64-decode with standard options
-pub(crate) fn decode_base64(sample: &str) -> String {
+pub fn decode_base64(sample: &str) -> String {
   let decoded = general_purpose::STANDARD.decode(sample).unwrap_or(vec![]);
   str::from_utf8(&decoded).unwrap_or("").to_string()
 }

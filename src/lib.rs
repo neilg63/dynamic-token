@@ -12,7 +12,7 @@ pub use to_key::*;
 pub use auth_status::*;
 pub use valid_auth_token::*;
 pub use auth_options::*;
-
+pub use utils::{encode_base64,decode_base64};
 
 
 

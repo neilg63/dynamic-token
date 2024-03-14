@@ -34,7 +34,6 @@ pub fn from_dynamic_key(
               base_36_parts_to_hex_dec(&tail_end)
             ].into_iter().map(|opt| opt.unwrap_or("".to_string())).collect::<Vec<String>>().concat();
             let rand_int = base_36_str_to_u64(&int_str);
-            println!("uuu: {}", uid_str);
             if uid_str.len() >= MIN_VALID_UUID_LENGTH {
               uuid = Some(uid_str.clone());
               valid = rand_int.is_some();

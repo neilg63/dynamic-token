@@ -55,7 +55,7 @@ The server and client must share the same API key and custom split characters. T
 
 #### Reequire a valid UUID
 
-A UUID is a universal unique identifier, typically a 24 or 32-character-long hexadecimal string. Some systems will add separators, which should stripped. These are used not only in MongoDB, but may be generated in most modern frameworks and in other database systems such MySQL or PostGres.
+A UUID is a universal unique identifier may be any hexadecimal string at least 24 characters in length. The encoder functin stripps any hyphens. These are used many common data systems such as MongoDB and may be generated in other database systems such MySQL or PostGres that traditionally use decimal integers as primary keys. 
 
 ```rust
 let options = AuthOptions::new("my_cryptic_shared_api_key").check_uuid(true);
@@ -89,4 +89,6 @@ If the client sends a UUID, but the server does not require it, the UUID compone
 This is an alpha release and will accompany Node JS and Web versions of the same utility.
 
 Version 1.4
-- The min length of unencoded UUIDs is 24. Most systems use either 24 or 32. Will now automatically remove "-" from UUIDs before encoding and validation.
+- The min length of unencoded UUIDs is 24. Most systems use either 24 or 32 with optional hyphens as separators.
+- The encoder now strips hyphens from UUIDs, leaving only the hexademical characters available for validation.
+- The crate *encode_base64* and *decode_base64* publicly available. These are wrappers for *base64::engine::general_purpose::STANDARD.encode(&str)* and its sibling function *decode*.
