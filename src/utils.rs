@@ -118,6 +118,7 @@ pub(crate) fn rand_int_36(power: u8) -> String {
   dec_to_base_36(rand_int).unwrap_or("".to_string())
 }
 
+/// Convert a hexadecimal string first into integers (0-15) and then into base-36
 pub(crate) fn hex_string_to_base36_parts(hex_str: &str) -> Option<String> {
   if hex_str.len() >= MIN_VALID_UUID_LENGTH {
     let base36_str = vec![&hex_str[..12],&hex_str[12..]].into_iter()

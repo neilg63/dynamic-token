@@ -78,4 +78,7 @@ pub fn test_long_uuid() {
   // The extracted hexdecimal UUID should be 32 characters long without hyphens
   assert_eq!(auth_token.uuid().len(), 32);
 
+  // check the long UUID is intact without hyphens
+  assert_eq!(auth_token.uuid(), long_uuid.replace("-", ""));
+
 }

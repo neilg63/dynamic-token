@@ -30,37 +30,45 @@ impl<'a> AuthOptions<'a> {
     self.to_owned()
   }
 
+  /// Return the shared API key, for internal use in your app only
   pub fn key(&self) -> &'a str {
     self.api_key
   }
 
+  /// Return the random split characters as an array
   pub fn rand_chars(&self) -> Vec<char> {
     self.rand_char_str.chars().into_iter().collect::<Vec<char>>()
   }
 
+  /// Timestamp tolerance in milliseconds
   pub fn tolerance(&self) -> i64 {
     self.tolerance as i64
   }
 
+  /// Only validate embedded UUIDs if this flag is true
   pub fn should_check_uuid(&self) -> bool {
     self.process_uuid
   }
 
+  /// Set check UUID status. True means it must be present in a valid hexadecimal format once decoded
   pub fn check_uuid(&mut self, val: bool) -> Self {
     self.process_uuid = val;
     self.to_owned()
   }
 
+  /// Set timestamp tolerance in milliseconds
   pub fn set_tolerance(&mut self, millis: u32) -> Self {
     self.tolerance = millis;
     self.to_owned()
   }
 
+  /// Set timestamp tolerance in seconds
   pub fn set_tolerance_secs(&mut self, secs: u32) -> Self {
     self.tolerance = secs * 1000;
     self.to_owned()
   }
 
+  /// Set timestamp tolerance in minutes
   pub fn set_tolerance_mins(&mut self, mins: u32) -> Self {
     self.tolerance = mins * 60 * 1000;
     self.to_owned()
