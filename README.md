@@ -53,7 +53,7 @@ let options = AuthOptions::new("my_cryptic_shared_api_key").set_rand_char_str("%
 ```
 The server and client must share the same API key and custom split characters. These may be any valid utf-8 characters except for letters, numerals or underscores (_). These characters will be base-64-encoded and thus add to the randomness of the encoded token.
 
-Please note the rand character string will be invalid if it contains Chinese ideograms, but emojis and mathematical symbols are fine as long as they are not interpreted as Greek letters. 
+Please note the random character sequence will be invalid if it contains Chinese ideograms, but emojis and mathematical symbols are fine as long as they are not interpreted as Greek letters. 
 
 #### Reequire a valid UUID
 
