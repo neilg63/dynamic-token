@@ -53,12 +53,14 @@ let options = AuthOptions::new("my_cryptic_shared_api_key").set_rand_char_str("%
 ```
 The server and client must share the same API key and custom split characters. These may be any valid utf-8 characters except for letters, numerals or underscores (_). These characters will be base-64-encoded and thus add to the randomness of the encoded token.
 
+Please note the rand character string will be invalid if it contains Chinese ideograms, but emojis and mathematical symbols are fine as long as they are not interpreted as Greek letters. 
+
 #### Reequire a valid UUID
 
 A UUID is a universal unique identifier may be any hexadecimal string at least 24 characters in length. The encoder function strips any hyphens. These are used many common data systems such as MongoDB and may be generated in other database systems such MySQL or PostGres that traditionally use decimal integers as primary keys. 
 
 ```rust
-let options = AuthOptions::new("my_cryptic_shared_api_key").check_uuid(true);
+let options = AuthOptions::new("api_key_with_an_emoji_😎☀︎").check_uuid(true);
 
 // The client generates a key that may be added to the request header
 let to_key = to_dynamic_key(&options, Some("5d00012de43dcd165cceb295"));

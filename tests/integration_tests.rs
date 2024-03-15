@@ -62,9 +62,11 @@ pub fn test_control_chars() {
 #[test]
 pub fn test_long_uuid() {
 
-  let api_key = "KrYpt0_δࢡබi😉▲⎈"; // you may use non-Latin letters and emojis, indeed any valid unicode character
-  let control_chars = "∑㌀兣◐"; // you can use ideograms and emojis but not alphanumeric characters or underscores
+  let api_key = "KrYpt0_δࢡබi😎☀︎⎈"; // you may use non-Latin letters and emojis, indeed any valid unicode character
+  // NB: Chinese ideograms will be interpreted as alphabetic, but emojis and mathematical symbols are OK if not interpreted as Greek letters
+  let control_chars = "∑㌀◐"; // you can use ideograms and emojis but not alphanumeric characters or underscores
   let options = AuthOptions::new(api_key).check_uuid(true).set_tolerance_mins(2).set_rand_char_str(control_chars);
+  
   let long_uuid= "acde070d-8c4c-4f0d-9d8a-162843c10333";
   let to_key = to_dynamic_key(&options,Some(long_uuid));
   use std::{thread, time};
