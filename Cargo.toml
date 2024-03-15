@@ -1,6 +1,6 @@
 [package]
 name = "dynamic-token"
-version = "0.1.5"
+version = "0.1.6"
 edition = "2021"
 description = "Encodes and evaluates a time-sensitive dynamic authentication token based on shared API key, a timestamp, some random noise characters and an optional UUID"
 repository = "https://github.com/neilg63/dynamic-token"
